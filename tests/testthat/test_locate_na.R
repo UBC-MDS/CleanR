@@ -13,14 +13,14 @@ toy_all_na <- tibble(x = c(NA,NA,NA), y = c(NA,NA,NA), z = c(NA, NA, NA))
 toy_no_na <- tibble(x = c(1,2,3,4), y = c(5,6,7,8))
 
 test_that("Test that input data is a tbl or data.frame", {
-  expect_error(locate_na("Input Data"), "Input is not a tibble or data.frame")
-  expect_error(locate_na(c(1:10)), "Input is not a tibble or data.frame")
-  expect_error(locate_na(list(1:3)), "Input is not a tibble or data.frame")
-  expect_error(locate_na(TRUE), "Input is not a tibble or data.frame")
+  expect_error(locate_na("Input Data"), "Input data type is not of class data.frame.")
+  expect_error(locate_na(c(1:10)), "Input data type is not of class data.frame.")
+  expect_error(locate_na(list(1:3)), "Input data type is not of class data.frame.")
+  expect_error(locate_na(TRUE), "Input data type is not of class data.frame.")
 })
 
 test_that("Test valid output format", {
-  expect_is(locate_na(toy_tbl), "list")
+  expect_is(locate_na(toy_data_tbl), "list")
   expect_is(locate_na(toy_data_df), "list")
 })
 
@@ -35,9 +35,9 @@ test_that("Test for correct functionality of the function", {
 })
 
 test_that("Test that output cannot have have more rows and columns than the original input data", {
-  expect_lte(len(locate_na(toy_data_tbl)), dim(toy_data_tbl)[2])
-  expect_lte(len(locate_na(toy_all_na)), dim(toy_all_na)[2])
-  expect_lte(len(locate_na(toy_no_na)), dim(toy_no_na)[2])
+  expect_lte(length(locate_na(toy_data_tbl)), dim(toy_data_tbl)[2])
+  expect_lte(length(locate_na(toy_all_na)), dim(toy_all_na)[2])
+  expect_lte(length(locate_na(toy_no_na)), dim(toy_no_na)[2])
   expect_lte(max(rapply(locate_na(toy_data_tbl),length)), dim(toy_data_tbl)[1])
   expect_lte(max(rapply(locate_na(toy_all_na),length)), dim(toy_all_na)[1])
   expect_lte(max(rapply(locate_na(toy_no_na),length)), dim(toy_no_na)[1])
