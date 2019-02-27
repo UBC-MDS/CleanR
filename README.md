@@ -10,8 +10,38 @@ There is a dire need for a good data cleaning package, and we are trying to deve
 CleanR is especially developed to create a streamlined process to give you an easy to read summary statistics table about your data. CleanR is able to easily locate all the missing data for you and allow you to locate where exactly it occurs. Not only are you able to locate missing data, you can also define how you would like to deal with your missing data. 
 
 ## Functions
-**Function 1)**
+**Function 1)**'`summary`: Summary statistics generator for string and numeric data for each column in a given dataframes.
+```
+#' summary(data)
+#' @description
+#'
+#'    This function computes summary statistics for text and numerical column_data from a given column_dataframe.
+#'    Input: dictionary or column_dataframe
+#'    Returns summary statistics for each column in a nested dataframe. Since dataframes only accept one data type per column, 
+#'    we only need to test the type of each column once.
+#'    It will perform two different summary statistics based on 2 column_datatypes of either
+#'    1) string/bool or 2) int/float/datetime object. For numeric data columns it returns a dictionary of summary statistics#'
+#'    including mean value for each column, min, max, mean, median and count (number of non NA values per column) and count_NA
+#'    (number of NA values per column). Similarly, for string columns it returns the unique string values and
+#'    their counts in a dictionary. The column summary statistics are then nested into a pandas dataframe and returned.
+#' @param data (tbl_df, df, data.frame) dataframe that the function will use    
+    
+#' @Returns
+#' Summary dataframe of each column's summary statistics
+#'    >>> summary(dataFrame("Likes coding"= c(1,0,1)))
+#'    Data.Frame(
+#'        min= 0
+#'        max= 1
+#'        mean= 2/3
+#'        median= 1
+#'        unique= 0, 1
+#'        count= 3
+#'        count_NA= 0)
+#' @export
+#' summary <- function(data) {
 
+}
+```
 
 **Function 2)** `locate_na`: Returns a list of the count and indices of NA values.  This function takes in a dataframe and finds NA values and returns the location of these missing values.
 
@@ -67,5 +97,4 @@ library(CleanR)
 
 ## R Dependencies
 
-import numpy as np
-import pandas as pd
+broom package
