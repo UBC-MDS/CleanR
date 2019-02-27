@@ -1,0 +1,26 @@
+---
+title: "Locate NA"
+author: "Patrick Tung"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`locate_na(data)` locates and returns the indices for all the missing values (NA) in a dataframe or a tibble.
+
+- Input:
+    - data: dataframe or tibble that the function will use to locate NAs
+
+- Output: a list of all the indices of a tibble or dataframe that have missing values
+
+- Example: `locate_na(data_frame)`
