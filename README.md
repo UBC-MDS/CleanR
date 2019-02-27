@@ -10,9 +10,10 @@ There is a dire need for a good data cleaning package, and we are trying to deve
 CleanR is especially developed to create a streamlined process to give you an easy to read summary statistics table about your data. CleanR is able to easily locate all the missing data for you and allow you to locate where exactly it occurs. Not only are you able to locate missing data, you can also define how you would like to deal with your missing data. 
 
 ## Functions
-**Function 1)**'`summary`: Summary statistics generator for string and numeric data for each column in a given dataframes.
+**Function 1)**`summary_r`: Summary statistics generator for string and numeric data for each column in a given dataframes.
 ```
-#' summary(data)
+#' Summary
+#' 
 #' @description
 #'
 #'    This function computes summary statistics for text and numerical column_data from a given column_dataframe.
@@ -28,7 +29,7 @@ CleanR is especially developed to create a streamlined process to give you an ea
     
 #' @Returns
 #' Summary dataframe of each column's summary statistics
-#'    >>> summary(dataFrame("Likes coding"= c(1,0,1)))
+#'    >>> summary_r(dataFrame("Likes coding"= c(1,0,1)))
 #'    Data.Frame(
 #'        min= 0
 #'        max= 1
@@ -57,24 +58,20 @@ CleanR is especially developed to create a streamlined process to give you an ea
 #'
 #' @return a list containing indices of missing values
 #' @export
-
-locate_na <- function(data) {
-
-}
-
 ```
 
 **Function 3)**`replace_na`:Replaces missing NA values with either min, max, median, or average (default) values of the column(s). There will be an option to remove the rows with NAs.
 ```
-#' `replace_na`
+#' Replace NA
+#' 
 #' @description
-#'This function replaces na values with either the min, max, #'median or average value or removes the rows.
+#' This function replaces na values with either the min, max, #'median or average value or removes the rows.
 
 #' @param input_df dataframe, dataframe that the  function #'will use to replace NAs.
 
 #' @returns
-#'A list of tuples where each NAs will be replaced by either #'min, max, median or average.
-#'Each tuple in the list represents  the indices of a NA in #'the dataframe. 
+#' A list of tuples where each NAs will be replaced by either #'min, max, median or average.
+#' Each tuple in the list represents  the indices of a NA in #'the dataframe. 
    
 #' @exports
 #' replace_na<- input_df %>% 
@@ -83,18 +80,45 @@ locate_na <- function(data) {
 ```
 
 ## CleanR and R's Ecosystem
-Sometimes it can get quite annoying dealing with data, so it is always nice to get some information about a quick summary of the data. A similar function in R that is implemented is the `summary()` function. CleanR's `summary()` function is very similar in the sense that it also produces summary statistics, but presented in a much more intuitive manner. Our `summary()` function also has more information such as the number of missing values, as well as provide summaries of text information. In regards to our `locate_na()` and `replace_na()`, there is no similar function created in the current R ecosystem that we know of. The only way to do this is to mannually combine a few functions including `is.na()`.
+
+Sometimes it can get quite annoying dealing with data, so it is always nice to get some information about a quick summary of the data. A similar function in R that is implemented is the `summary_r()` function. CleanR's `summary_r()` function is very similar in the sense that it also produces summary statistics, but presented in a much more intuitive manner. Our `summary_r()` function also has more information such as the number of missing values, as well as provide summaries of text information. In regards to our `locate_na()` and `replace_na()`, there is no similar function created in the current R ecosystem that we know of. The only way to do this is to mannually combine a few functions including `is.na()`.
 
 ## Installation
-*Will be developed next milestone*
 
-You can install the released version of CleanR from [CRAN](https://CRAN.R-project.org) with:
+To install `CleanR`, please follow these instructions:
 
+1. First, check if `devtools` is installed and loaded into the environment. Install `devtools` with `install.packages("devtools")` and load it into the environment with `library(devtools)`.
+
+2. Then input the following code into the console
 ``` r
-install.packages("CleanR")
+devtools::install_github("UBC-MDS/CleanR")
 library(CleanR)
 ```
 
-## R Dependencies
+## Usage
+Let's assume that you have a tibble or df like the following:
+```{r}
+toy_data_tbl <- tribble(
+  ~x, ~y,  ~z,
+  NA, 2,  3.6,
+  "b", NA, 8.5,
+  "c", NA, NA
+)
+```
+1. `summary_r`
+Arguments: 
+  - `data`: dataframe or tibble that the function will provide summary statistics on
+  - Example: `summary_r(toy_data_tbl)`
+  
+2. `locate_na`
+Arguments:
+  - `data`: dataframe or tibble that the function will use to locate NAs
+  - Example: `locate_na(toy_data_tbl)`
 
-broom package
+3. `replace_na`
+Arguments:
+  - 
+  - Example: 
+
+## R Dependencies
+- `broom` package
