@@ -17,72 +17,52 @@
 #'
 #' @return a nested dataframe of columns with their summary statistics
 #' @export
+get_numeric_stats <- function(column_data) {
+  stats_df <- list(
+    "count"       =   length(column_data),
+    "count_unique"=   length(unique(column_data)),
+    "unique"      =   unique(column_data),
+    "count_NAs"   =   sum(is.na(column_data)),
+    "min_"        =   min(column_data, na.rm = T),
+    "max_"        =   max(column_data, na.rm = T),
+    "mean"        =   mean(column_data, na.rm = T),
+    "median"      =   median(column_data, na.rm = T)
+  )
+  return(stats_df)
+}
 
+get_categorical_stats <- function(column_data){
+  # find unique strings and count missing strings
+  stats_df = list(
+    "count"        <- length(column_data),
+    "count_unique" <- length(unique(column_data)),
+    "unique"       <- unique(column_data),
+    "count_NAs"    <- sum(is.na(column_data))
+  )
+  return(stats_df)
+}
 
-summary <- function(data) {
-  
+summary_r <- function(data) {
   # check if data is a dataframe or tibble
   if (!('data.frame' %in% class(data))) {
     stop("Input data type is not of class data.frame.")
   }
-  # check if data is all NA
-  if (!any(is.na(data) == FALSE)) {
-    warning("All values are missing.")
-  }
-  
   # check dimensions
   if (length(dim(data)) >= 3) {
     stop("Summary is not implemented on objects with more than 2 dimensions")
   }
-  #check that dataframe is not empty
-  #if (length(dim(data)) == 2) & (ncol(data) == 0) {
-   # stop("Cannot describe a column_dataFrame without columns")
+  cols <- colnames(data)
+  all_stats <- list()
+  for (i in cols) {
+    vec <- get(i, data)
+    if(is.numeric(vec)) {
+      stats <- get_numeric_stats(vec)
+    } else if (is.character(vec)) {
+      stats <- get_categorical_stats(vec)
+      names(stats) <- c("count", "count_unique", "unique", "count_NAs")
+    }
+    all_stats <- append(all_stats, list(stats))
   }
-  
-  
-  #find data type in each column of input data
-  column_names = colnames(data)
-  summary_df = data.frame()
-  for (column in column_names) {
-    #check if data type is numeric or time obj
-    if ((class(titanic[[column]]) == "numeric") | (class(titanic[[column]]) == "date")) {
-      # Numeric Data Column
-    summary_stats <- get_numeric_stats(data[[column]])
-    }
-    else { # assume everything else is Categorical Data Column
-    summary_stats <- get_categorical_stats(data[[column]])
-    }
-    summary_df[column] <- summary_stats
-  
-  return(summary_df)
-    
-  # check if data has no NA
-  if (!any(is.na(data))) {count_NA = 0 }
-  
-  get_numeric_stats <- function(column_data) {
-
-    stats_df <- data.frame(
-      "count"       <-   length(column_data),
-      "count_unique"<-   length(unique(column_data)),
-      "Unique"      <-   unique(column_data),
-      "count_NAs"   <-   sum(isna(column_data)), 
-      "min_"        <-   min(column_data),
-      "max_"        <-   max(column_data),
-      "mean"        <-   mean(column_data),
-      "median"      <-   median(column_data),
-    )
-    return(stats_df)
-  }
-    
-  get_categorical_stats <- function(column_data){
-      #find unique strings and count missing strings 
-    stats_df = data.frame(
-      "count"        <- length(column_data),
-      "count_unique" <- length(unique(column_data)),
-      "Unique"       <- unique(column_data),
-      "count_NAs"    <- sum(isna(column_data))
-      )             
-    return(stats_df)
-    }
-
+  names(all_stats) <- cols
+  return(all_stats)
 }

@@ -1,4 +1,4 @@
-# This script tests the summary() function
+# This script tests the summary_r() function
 context("Replace NA function")
 library(CleanR)
 
@@ -14,23 +14,16 @@ toy_no_na <- tibble(x = c(1,2,3,4), y = c(5,6,7,8))
 toy_same_dim <- tibble(x = c(3,4), y = c(5,6))
 
 test_that("Test that input is a data frame", {
-  expect_error(summary("Input Data"), "Input is not a data frame")
+  expect_error(summary_r("Input Data"), "Input data type is not of class data.frame.")
 })
 
-test_that("Test that input has NA", {
-  all_na_result <- list(x=c(1,2,3), y=c(1,2,3), z=c(1,2,3))
-
-  expect_warning(summary(toy_all_na), "There are no missing values")
-
-})
-test_that("Test that if the whole input has NA", {
+test_that("Test that if the whole input is NA", {
   no_na_result <- list(x=c(0), y=c(0))
-
-  expect_warning(summary(toy_no_na), "No NAs are in the input data.")
+  expect_warning(summary_r(toy_no_na), "No NAs are in the input data.")
 })
 
 test_that("Test that the input dimension equals the output dimension", {
   same_dim_result <- list(x=c(0), y=c(0))
 
-  expect_warning(summary(toy_same_dim), "The dimensions don't match")
+  expect_warning(summary_r(toy_same_dim), "The dimensions don't match")
 })
