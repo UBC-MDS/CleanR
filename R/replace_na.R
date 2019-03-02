@@ -13,45 +13,41 @@
 #'
 #' @export
 
-replace_na <- function(data) {
+replace_na <- function(data,col_name, replace="mean", remove=FALSE) {
 
+  # check if data has no NA
   if (!any(is.na(data))) {
     return ("Input must not all me missing values")
-
-
-      # mean
-  mean_na = list()
-      for (i in 1:ncol(data)) {
-        data[is.na(data[,i]), i] <- mean(data[,1], na.rm = TRUE)
-      }
-      return(mean_na)
-    }
-
-    # min
-  min_na = list()
-    for (i in 1:ncol(data)) {
-      data[is.na(data[,i]), i] <- mean(data[,1], na.rm = TRUE)
-    }
-    return(min_na)
   }
+  # mean
+  mean_na = data.frame()
+  for (i in col_name) {
+    data[is.na(data[,i]), i] <- mean(data[,1], na.rm = TRUE)
+  }
+  return(mean_na)
+
+  # min
+  min_na = data.frame()
+  for (i in col_name) {
+    data[is.na(data[,i]), i] <- mean(data[,1], na.rm = TRUE)
+  }
+  return(min_na)
+
 
   #  median
 
-  median_na = list()
-    for (i in 1:ncol(data)) {
-    data[is.na(data[,i]), i] <- with(
-      median(data[,2], na.rm = TRUE))
+  median_na = data.frame()
+  for (i in col_name) {
+    data[is.na(data[,i]), i] <-  median(data[,1], na.rm = TRUE)
   }
   return(median_na)
-}
 
-# max
+  # max
 
- max_na = list()
-   for (i in 1:ncol(data)) {
-  data[is.na(data[,i]), i] <- with(
-    max(data[,2], na.rm = TRUE))
-}
-return(max_na)
-}
+  max_na = data.frame()
+  for (i in col_name) {
+    data[is.na(data[,i]), i] <- max(data[,2], na.rm = TRUE)
+  }
+  return(max_na)
 
+}
