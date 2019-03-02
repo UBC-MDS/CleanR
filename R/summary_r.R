@@ -17,6 +17,7 @@
 #'
 #' @return a nested dataframe of columns with their summary statistics
 #' @export
+
 get_numeric_stats <- function(column_data) {
   stats_df <- list(
     "count"       =   length(column_data),
@@ -43,6 +44,7 @@ get_categorical_stats <- function(column_data){
 }
 
 summary_r <- function(data) {
+
   # check if data is a dataframe or tibble
   if (!('data.frame' %in% class(data))) {
     stop("Input data type is not of class data.frame.")
@@ -51,6 +53,7 @@ summary_r <- function(data) {
   if (length(dim(data)) >= 3) {
     stop("Summary is not implemented on objects with more than 2 dimensions")
   }
+
   cols <- colnames(data)
   all_stats <- list()
   for (i in cols) {
@@ -66,3 +69,9 @@ summary_r <- function(data) {
   names(all_stats) <- cols
   return(all_stats)
 }
+
+  #check that dataframe is not empty
+  #if (length(dim(data)) == 2) & (ncol(data) == 0) {
+   # stop("Cannot describe a column_dataFrame without columns")
+  
+  
