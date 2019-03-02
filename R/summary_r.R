@@ -19,7 +19,7 @@
 #' @export
 
 get_numeric_stats <- function(column_data) {
-  stats_df <- list(
+  stats_list <- list(
     "count"       =   length(column_data),
     "count_unique"=   length(unique(column_data)),
     "unique"      =   unique(column_data),
@@ -29,18 +29,18 @@ get_numeric_stats <- function(column_data) {
     "mean"        =   mean(column_data, na.rm = T),
     "median"      =   median(column_data, na.rm = T)
   )
-  return(stats_df)
+  return(stats_list)
 }
 
 get_categorical_stats <- function(column_data){
   # find unique strings and count missing strings
-  stats_df = list(
-    "count"        <- length(column_data),
-    "count_unique" <- length(unique(column_data)),
-    "unique"       <- unique(column_data),
-    "count_NAs"    <- sum(is.na(column_data))
+  stats_list = list(
+    "count"        = length(column_data),
+    "count_unique" = length(unique(column_data)),
+    "unique"       = unique(column_data),
+    "count_NAs"    = sum(is.na(column_data))
   )
-  return(stats_df)
+  return(stats_list)
 }
 
 summary_r <- function(data) {
@@ -53,25 +53,26 @@ summary_r <- function(data) {
   if (length(dim(data)) >= 3) {
     stop("Summary is not implemented on objects with more than 2 dimensions")
   }
-
+  #check that dataframe is not empty
+  if (nrow(data) == 0){
+    stop("Cannot summarize a dataframe without observations")
+  }
+  #for each column do numerical or categorical summary on the column data
   cols <- colnames(data)
   all_stats <- list()
   for (i in cols) {
     vec <- get(i, data)
     if(is.numeric(vec)) {
       stats <- get_numeric_stats(vec)
-    } else if (is.character(vec)) {
+      names(stats) <- c("count", "count_unique", "unique", "count_NAs", "min_", "max_", "mean", "median")
+      } else if (is.character(vec)) {
       stats <- get_categorical_stats(vec)
       names(stats) <- c("count", "count_unique", "unique", "count_NAs")
-    }
+      }
     all_stats <- append(all_stats, list(stats))
-  }
-  names(all_stats) <- cols
-  return(all_stats)
+    }
+    names(all_stats) <- cols
+    return(all_stats)
 }
 
-  #check that dataframe is not empty
-  #if (length(dim(data)) == 2) & (ncol(data) == 0) {
-   # stop("Cannot describe a column_dataFrame without columns")
-  
-  
+
