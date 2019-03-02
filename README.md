@@ -96,7 +96,7 @@ library(CleanR)
 ```
 
 ## Usage
-Let's assume that you have a tibble or df like the following:
+Let's assume that you have a tibble or dataframe like the following:
 ```{r}
 toy_data_tbl <- tribble(
   ~x, ~y,  ~z,
@@ -107,18 +107,18 @@ toy_data_tbl <- tribble(
 ```
 1. `summary_r`
 Arguments: 
-  - `data`: dataframe or tibble that the function will provide summary statistics on
-  - Example: `summary_r(toy_data_tbl)`
+    - `data`: dataframe or tibble that the function will provide summary statistics on
+    - Example: `summary_r(toy_data_tbl)`
   
 2. `locate_na`
 Arguments:
-  - `data`: dataframe or tibble that the function will use to locate NAs
-  - Example: `locate_na(toy_data_tbl)`
+    - `data`: dataframe or tibble that the function will use to locate NAs
+    - Example: `locate_na(toy_data_tbl)`
 
 3. `replace_na`
 Arguments:
-  - 
-  - Example: 
+    - 
+    - Example: 
 
 ## R Dependencies
 - `broom` package
