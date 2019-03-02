@@ -121,4 +121,4 @@ Arguments:
     - Example: 
 
 ## R Dependencies
-- `broom` package
+- `tidyverse` package

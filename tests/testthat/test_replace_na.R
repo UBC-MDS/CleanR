@@ -1,5 +1,6 @@
 # This script tests the replace_na() function
 context("Replace NA function")
+library(dplyr)
 library(CleanR)
 
 toy_data_tbl <- tribble(
@@ -14,23 +15,45 @@ toy_no_na <- tibble(x = c(1,2,3,4), y = c(5,6,7,8))
 toy_same_dim <- tibble(x = c(3,4), y = c(5,6))
 
 test_that("Test that input is a data frame", {
-  expect_error(replace_na("Input Data"), "Input is not a data frame")
+  expect_error(replace_na("Input Data", "x"), "Input data type is not of class data.frame.")
+  expect_error(replace_na(c(1:10), "y"), "Input data type is not of class data.frame.")
+  expect_error(replace_na(list(1:3), "z"), "Input data type is not of class data.frame.")
 })
 
-test_that("Test that input has NA", {
-  all_na_result <- list(x=c(1,2,3), y=c(1,2,3), z=c(1,2,3))
-
-  expect_warning(replace_na(toy_all_na), "There are no missing values")
-
+test_that("Test that input column are all NAs", {
+  expect_error(replace_na(toy_all_na, "x"), "Cannot perform function when all values are missing.")
+  expect_error(replace_na(toy_all_na, "y"), "Cannot perform function when all values are missing.")
 })
-test_that("Test that if the whole input has NA", {
-  no_na_result <- list(x=c(0), y=c(0))
 
-  expect_warning(replace_na(toy_no_na), "No NAs are in the input data.")
+test_that("Test warning if there are no missing values", {
+  expect_warning(replace_na(toy_no_na, "x"), "There are no missing values.")
+  expect_warning(replace_na(toy_no_na, "y"), "There are no missing values.")
 })
 
 test_that("Test that the input dimension equals the output dimension", {
-  same_dim_result <- list(x=c(0), y=c(0))
-
-  expect_warning(replace_na(toy_same_dim), "The dimensions don't match")
+  expect_equal(ncol(replace_na(toy_data_tbl, "y")), ncol(toy_data_tbl))
+  expect_equal(ncol(replace_na(toy_no_na, "y")), ncol(toy_no_na))
+  expect_lte(nrow(replace_na(toy_data_df, "z")), nrow(toy_data_df))
+  expect_lte(nrow(replace_na(toy_data_df, "z", remove=TRUE)), nrow(toy_data_df))
+  expect_lte(nrow(replace_na(toy_no_na, "y")), nrow(toy_no_na))
 })
+
+test_that("Test that the input dimension equals the output dimension", {
+  expect_equal(ncol(replace_na(toy_data_tbl, "y")), ncol(toy_data_tbl))
+  expect_equal(ncol(replace_na(toy_no_na, "y")), ncol(toy_no_na))
+  expect_lte(nrow(replace_na(toy_data_df, "z")), nrow(toy_data_df))
+  expect_lte(nrow(replace_na(toy_data_df, "z", remove=TRUE)), nrow(toy_data_df))
+  expect_lte(nrow(replace_na(toy_no_na, "y")), nrow(toy_no_na))
+})
+
+test_that("Test for correct functionality of the function", {
+  toy_result <- tibble(x = c(NA,"b","c"), y = c(2,2,2), z = c(3.6, 8.5, NA))
+  expect_equal(replace_na(toy_data_tbl, "y", replace = "max"), toy_result)
+})
+
+test_that("Test replace and remove argument", {
+  expect_error(replace_na(toy_data_tbl, "y", replace=5), "Argument replace is not one of 'mean', 'min', 'max', or 'median'")
+  expect_error(replace_na(toy_data_tbl, "y", replace=TRUE), "Argument replace is not one of 'mean', 'min', 'max', or 'median'")
+  expect_error(replace_na(toy_data_tbl, "y", remove="hi"), "Argument remove should be logical.")
+  expect_error(replace_na(toy_data_tbl, "y", remove=c(1,2,3)), "Argument remove should be logical.")
+  })
