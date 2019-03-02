@@ -18,31 +18,6 @@
 #' @return a nested dataframe of columns with their summary statistics
 #' @export
 
-get_numeric_stats <- function(column_data) {
-  stats_df <- list(
-    "count"       =   length(column_data),
-    "count_unique"=   length(unique(column_data)),
-    "unique"      =   unique(column_data),
-    "count_NAs"   =   sum(is.na(column_data)),
-    "min_"        =   min(column_data, na.rm = T),
-    "max_"        =   max(column_data, na.rm = T),
-    "mean"        =   mean(column_data, na.rm = T),
-    "median"      =   median(column_data, na.rm = T)
-  )
-  return(stats_df)
-}
-
-get_categorical_stats <- function(column_data){
-  # find unique strings and count missing strings
-  stats_df = list(
-    "count"        <- length(column_data),
-    "count_unique" <- length(unique(column_data)),
-    "unique"       <- unique(column_data),
-    "count_NAs"    <- sum(is.na(column_data))
-  )
-  return(stats_df)
-}
-
 summary_r <- function(data) {
 
   # check if data is a dataframe or tibble
@@ -70,8 +45,27 @@ summary_r <- function(data) {
   return(all_stats)
 }
 
-  #check that dataframe is not empty
-  #if (length(dim(data)) == 2) & (ncol(data) == 0) {
-   # stop("Cannot describe a column_dataFrame without columns")
-  
-  
+get_numeric_stats <- function(column_data) {
+  stats_df <- list(
+    "count"       =   length(column_data),
+    "count_unique"=   length(unique(column_data)),
+    "unique"      =   unique(column_data),
+    "count_NAs"   =   sum(is.na(column_data)),
+    "min_"        =   min(column_data, na.rm = T),
+    "max_"        =   max(column_data, na.rm = T),
+    "mean"        =   mean(column_data, na.rm = T),
+    "median"      =   median(column_data, na.rm = T)
+  )
+  return(stats_df)
+}
+
+get_categorical_stats <- function(column_data){
+  # find unique strings and count missing strings
+  stats_df = list(
+    "count"        <- length(column_data),
+    "count_unique" <- length(unique(column_data)),
+    "unique"       <- unique(column_data),
+    "count_NAs"    <- sum(is.na(column_data))
+  )
+  return(stats_df)
+}

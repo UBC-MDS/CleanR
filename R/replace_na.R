@@ -1,27 +1,20 @@
+library(dplyr)
 #' Replace NAs
 #'
 #' @description
 #' This function replaces na values with either the min, max,
 #' median or average value or removes the rows.
 #'
-#' @param
-#' data (tbl_df, df, data.frame) dataframe that the function will use to locate NAs
+#' @param data (tbl_df, df, data.frame) dataframe that the function will use to locate NAs
+#' @param columns (vector or list) columns that specify which column to replace
+#' @param replace (character) the method to replace missing values with
+#' @param remove (logical) TRUE to remove missing value rows
 #'
 #' @return
 #' A list of tuples where each NAs will be replaced by either
 #' min, max, median or average.
 #'
 #' @export
-
-warn <- function(vec) {
-  if (!any(is.na(vec))) {
-    warning("There are no missing values.")
-  } else if (!any(is.na(vec) == FALSE)) {
-    stop("Cannot perform function when all values are missing.")
-  } else if (!is.numeric(vec)) {
-    stop("The column or columns you have inputted are not numeric.")
-  }
-}
 
 replace_na <- function(data, columns, replace="mean", remove=FALSE) {
   if (!is.logical(remove)) {
@@ -76,4 +69,14 @@ replace_na <- function(data, columns, replace="mean", remove=FALSE) {
     }
   }
   return(data)
+}
+
+warn <- function(vec) {
+  if (!any(is.na(vec))) {
+    warning("There are no missing values.")
+  } else if (!any(is.na(vec) == FALSE)) {
+    stop("Cannot perform function when all values are missing.")
+  } else if (!is.numeric(vec)) {
+    stop("The column or columns you have inputted are not numeric.")
+  }
 }
