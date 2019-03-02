@@ -19,7 +19,7 @@
 #' @export
 
 get_numeric_stats <- function(column_data) {
-  stats_df <- list(
+  stats_df <- tibble(
     "count"       =   length(column_data),
     "count_unique"=   length(unique(column_data)),
     "unique"      =   unique(column_data),
@@ -34,11 +34,11 @@ get_numeric_stats <- function(column_data) {
 
 get_categorical_stats <- function(column_data){
   # find unique strings and count missing strings
-  stats_df = list(
-    "count"        <- length(column_data),
-    "count_unique" <- length(unique(column_data)),
-    "unique"       <- unique(column_data),
-    "count_NAs"    <- sum(is.na(column_data))
+  stats_df = tibble(
+    "count"        = length(column_data),
+    "count_unique" = length(unique(column_data)),
+    "unique"       = unique(column_data),
+    "count_NAs"    = sum(is.na(column_data))
   )
   return(stats_df)
 }
@@ -53,6 +53,10 @@ summary_r <- function(data) {
   if (length(dim(data)) >= 3) {
     stop("Summary is not implemented on objects with more than 2 dimensions")
   }
+  #check that dataframe is not empty
+  if (nrow(data) == 0){
+    stop("Cannot summarize a dataframe without observations")
+  }
 
   cols <- colnames(data)
   all_stats <- list()
@@ -64,14 +68,12 @@ summary_r <- function(data) {
       stats <- get_categorical_stats(vec)
       names(stats) <- c("count", "count_unique", "unique", "count_NAs")
     }
-    all_stats <- append(all_stats, list(stats))
+    all_stats <- append(all_stats, stats)
   }
   names(all_stats) <- cols
   return(all_stats)
 }
 
-  #check that dataframe is not empty
-  #if (length(dim(data)) == 2) & (ncol(data) == 0) {
-   # stop("Cannot describe a column_dataFrame without columns")
-  
-  
+empty_df <- data.frame()
+summary_r(empty_df)
+class(summary_r(toy_data_df))
