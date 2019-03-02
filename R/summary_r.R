@@ -75,8 +75,4 @@ summary_r <- function(data) {
     return(all_stats)
 }
 
-#empty_df <- data.frame()
-summary_r(toy_data_df)
-class(summary_r(toy_data_df))
 
-methods(summary.data.frame)
