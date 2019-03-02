@@ -12,17 +12,6 @@
 #' min, max, median or average.
 #'
 #' @export
-
-warn <- function(vec) {
-  if (!any(is.na(vec))) {
-    warning("There are no missing values.")
-  } else if (!any(is.na(vec) == FALSE)) {
-    stop("Cannot perform function when all values are missing.")
-  } else if (!is.numeric(vec)) {
-    stop("The column or columns you have inputted are not numeric.")
-  }
-}
-
 replace_na <- function(data, columns, replace="mean", remove=FALSE) {
   if (!is.logical(remove)) {
     stop("Argument remove should be logical.")
@@ -41,8 +30,14 @@ replace_na <- function(data, columns, replace="mean", remove=FALSE) {
   if (replace=="mean") {
     for (i in columns) {
       vec <- get(i, data)
-      # warning function
-      warn(vec)
+      # warning
+      if (!any(is.na(vec))) {
+        warning("There are no missing values.")
+      } else if (!any(is.na(vec) == FALSE)) {
+        stop("Cannot perform function when all values are missing.")
+      } else if (!is.numeric(vec)) {
+        stop("The column or columns you have inputted are not numeric.")
+      }
       # replace
       mean <- mean(vec, na.rm = T)
       data <- mutate_at(data, vars(i), funs(replace(., is.na(.), mean)))
@@ -51,7 +46,13 @@ replace_na <- function(data, columns, replace="mean", remove=FALSE) {
     for (i in columns) {
       vec <- get(i, data)
       # warning function
-      warn(vec)
+      if (!any(is.na(vec))) {
+        warning("There are no missing values.")
+      } else if (!any(is.na(vec) == FALSE)) {
+        stop("Cannot perform function when all values are missing.")
+      } else if (!is.numeric(vec)) {
+        stop("The column or columns you have inputted are not numeric.")
+      }
       # replace
       min <- min(vec, na.rm = T)
       data <- mutate_at(data, vars(i), funs(replace(., is.na(.), min)))
@@ -59,8 +60,14 @@ replace_na <- function(data, columns, replace="mean", remove=FALSE) {
   } else if (replace == "max") { # max
     for (i in columns) {
       vec <- get(i, data)
-      # warning function
-      warn(vec)
+      # warning
+      if (!any(is.na(vec))) {
+        warning("There are no missing values.")
+      } else if (!any(is.na(vec) == FALSE)) {
+        stop("Cannot perform function when all values are missing.")
+      } else if (!is.numeric(vec)) {
+        stop("The column or columns you have inputted are not numeric.")
+      }
       # replace
       max <- max(vec, na.rm = T)
       data <- mutate_at(data, vars(i), funs(replace(., is.na(.), max)))
@@ -68,8 +75,14 @@ replace_na <- function(data, columns, replace="mean", remove=FALSE) {
   } else if (replace == "median") { # median
     for (i in columns) {
       vec <- get(i, data)
-      # warning function
-      warn(vec)
+      # warning
+      if (!any(is.na(vec))) {
+        warning("There are no missing values.")
+      } else if (!any(is.na(vec) == FALSE)) {
+        stop("Cannot perform function when all values are missing.")
+      } else if (!is.numeric(vec)) {
+        stop("The column or columns you have inputted are not numeric.")
+      }
       # replace
       median <- median(vec, na.rm = T)
       data <- mutate_at(data, vars(i), funs(replace(., is.na(.), median)))

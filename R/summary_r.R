@@ -17,32 +17,6 @@
 #'
 #' @return a nested dataframe of columns with their summary statistics
 #' @export
-
-get_numeric_stats <- function(column_data) {
-  stats_list <- list(
-    "count"       =   length(column_data),
-    "count_unique"=   length(unique(column_data)),
-    "unique"      =   unique(column_data),
-    "count_NAs"   =   sum(is.na(column_data)),
-    "min_"        =   min(column_data, na.rm = T),
-    "max_"        =   max(column_data, na.rm = T),
-    "mean"        =   mean(column_data, na.rm = T),
-    "median"      =   median(column_data, na.rm = T)
-  )
-  return(stats_list)
-}
-
-get_categorical_stats <- function(column_data){
-  # find unique strings and count missing strings
-  stats_list = list(
-    "count"        = length(column_data),
-    "count_unique" = length(unique(column_data)),
-    "unique"       = unique(column_data),
-    "count_NAs"    = sum(is.na(column_data))
-  )
-  return(stats_list)
-}
-
 summary_r <- function(data) {
 
   # check if data is a dataframe or tibble
@@ -63,10 +37,24 @@ summary_r <- function(data) {
   for (i in cols) {
     vec <- get(i, data)
     if(is.numeric(vec)) {
-      stats <- get_numeric_stats(vec)
-      names(stats) <- c("count", "count_unique", "unique", "count_NAs", "min_", "max_", "mean", "median")
+      stats <- list(
+        "count"       =   length(vec),
+        "count_unique"=   length(unique(vec)),
+        "unique"      =   unique(vec),
+        "count_NAs"   =   sum(is.na(vec)),
+        "min_"        =   min(vec, na.rm = T),
+        "max_"        =   max(vec, na.rm = T),
+        "mean"        =   mean(vec, na.rm = T),
+        "median"      =   median(vec, na.rm = T)
+      )
+      # names(stats) <- c("count", "count_unique", "unique", "count_NAs", "min_", "max_", "mean", "median")
       } else if (is.character(vec)) {
-      stats <- get_categorical_stats(vec)
+      stats <- list(
+        "count"        = length(vec),
+        "count_unique" = length(unique(vec)),
+        "unique"       = unique(vec),
+        "count_NAs"    = sum(is.na(vec))
+      )
       names(stats) <- c("count", "count_unique", "unique", "count_NAs")
       }
     all_stats <- append(all_stats, list(stats))
