@@ -117,8 +117,13 @@ Arguments:
 
 3. `replace_na`
 Arguments:
-    - 
-    - Example: 
+    - `data`: dataframe that the function will use to replace NAs
+    - `columns`: columns that specify which column to replace
+    - `replace`: the method to replace missing values with
+    - `remove`: set TRUE to remove missing value rows
+    - Example: `replace_na(data, columns="x", replace="mean", remove=FALSE)`
 
 ## R Dependencies
-- `tidyverse` package
+- `dplyr`
+- `tibble`
+- `stats`

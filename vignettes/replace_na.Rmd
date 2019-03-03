@@ -1,0 +1,29 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`replace_na(data, columns, replace="mean", remove=FALSE)` replaces na values with either the min, max, median or mean values or removes the rows.
+
+- Input:
+    - data: dataframe that the function will use to replace NAs
+    - columns: columns that specify which column to replace
+    - replace: the method to replace missing values with
+    - remove: set TRUE to remove missing value rows
+
+- Output: a list of all the indices of a tibble or dataframe that have missing values
+
+- Example: `replace_na(data, columns="x", replace="mean", remove=FALSE)`

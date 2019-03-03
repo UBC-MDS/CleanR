@@ -7,7 +7,13 @@
 replace_na(data, columns, replace = "mean", remove = FALSE)
 }
 \arguments{
-\item{data}{(tbl_df, df, data.frame) dataframe that the function will use to locate NAs}
+\item{data}{(tbl_df, df, data.frame) dataframe that the function will use to replace NAs}
+
+\item{columns}{(vector or list) columns that specify which column to replace}
+
+\item{replace}{(character) the method to replace missing values with}
+
+\item{remove}{(logical) set TRUE to remove missing value rows}
 }
 \value{
 A list of tuples where each NAs will be replaced by either

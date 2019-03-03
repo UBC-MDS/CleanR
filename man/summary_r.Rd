@@ -10,7 +10,7 @@ summary_r(data)
 \item{data}{(tbl_df, df, data.frame) dataframe that the function will use to locate NAs}
 }
 \value{
-a nested dataframe of columns with their summary statistics
+a nested list of columns that includes all the summary statistics information
 }
 \description{
 It will determine the main data type of the column by calculated the type

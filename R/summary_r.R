@@ -15,17 +15,14 @@
 #'
 #' @param data (tbl_df, df, data.frame) dataframe that the function will use to locate NAs
 #'
-#' @return a nested dataframe of columns with their summary statistics
+#' @return a nested list of columns that includes all the summary statistics information
+#' @importFrom stats median
 #' @export
 summary_r <- function(data) {
 
   # check if data is a dataframe or tibble
   if (!('data.frame' %in% class(data))) {
     stop("Input data type is not of class data.frame.")
-  }
-  # check dimensions
-  if (length(dim(data)) >= 3) {
-    stop("Summary is not implemented on objects with more than 2 dimensions")
   }
   #check that dataframe is not empty
   if (nrow(data) == 0){
@@ -47,7 +44,7 @@ summary_r <- function(data) {
         "mean"        =   mean(vec, na.rm = T),
         "median"      =   median(vec, na.rm = T)
       )
-      # names(stats) <- c("count", "count_unique", "unique", "count_NAs", "min_", "max_", "mean", "median")
+      names(stats) <- c("count", "count_unique", "unique", "count_NAs", "min_", "max_", "mean", "median")
       } else if (is.character(vec)) {
       stats <- list(
         "count"        = length(vec),

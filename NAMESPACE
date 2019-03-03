@@ -3,3 +3,8 @@
 export(locate_na)
 export(replace_na)
 export(summary_r)
+importFrom(dplyr,funs)
+importFrom(dplyr,mutate_at)
+importFrom(dplyr,vars)
+importFrom(stats,median)
+importFrom(stats,na.omit)

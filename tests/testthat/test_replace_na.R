@@ -30,6 +30,10 @@ test_that("Test warning if there are no missing values", {
   expect_warning(replace_na(toy_no_na, "y"), "There are no missing values.")
 })
 
+test_that("Test warning if there are no missing values", {
+  expect_error(replace_na(toy_data_tbl, "x"), "The column or columns you have inputted are not numeric.")
+})
+
 test_that("Test that the input dimension equals the output dimension", {
   expect_equal(ncol(replace_na(toy_data_tbl, "y")), ncol(toy_data_tbl))
   expect_equal(ncol(replace_na(toy_no_na, "y")), ncol(toy_no_na))
@@ -47,8 +51,12 @@ test_that("Test that the input dimension equals the output dimension", {
 })
 
 test_that("Test for correct functionality of the function", {
-  toy_result <- tibble(x = c(NA,"b","c"), y = c(2,2,2), z = c(3.6, 8.5, NA))
-  expect_equal(replace_na(toy_data_tbl, "y", replace = "max"), toy_result)
+  toy_result_max <- tibble(x = c(NA,"b","c"), y = c(2,2,2), z = c(3.6, 8.5, NA))
+  toy_result_min <- tibble(x = c(NA,"b","c"), y = c(2,NA,NA), z = c(3.6, 8.5, 3.6))
+  toy_result_median <- tibble(x = c(NA,"b","c"), y = c(2,NA, NA), z = c(3.6, 8.5, 6.05))
+  expect_equal(replace_na(toy_data_tbl, "y", replace = "max"), toy_result_max)
+  expect_equal(replace_na(toy_data_tbl, "z", replace = "min"), toy_result_min)
+  expect_equal(replace_na(toy_data_tbl, "z", replace = "median"), toy_result_median)
 })
 
 test_that("Test replace and remove argument", {
