@@ -122,6 +122,20 @@ Arguments:
     - `replace`: the method to replace missing values with
     - `remove`: set TRUE to remove missing value rows
     - Example: `replace_na(data, columns="x", replace="mean", remove=FALSE)`
+    
+## Branch Coverage
+You can install the coverage package in r with the following code:
+```{r}
+install.packages("covr")
+```
+To get the branch coverage of the package, type the following into r console:
+```{r}
+library(covr)
+report()
+```
+
+The coverage result is shown below:
+![coverage image](./images/coverage.png)
 
 ## R Dependencies
 - `dplyr`
