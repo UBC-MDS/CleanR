@@ -6,10 +6,10 @@ library(stats)
 #' This function replaces na values with either the min, max,
 #' median or average value or removes the rows.
 #'
-#' @param data (tbl_df, df, data.frame) dataframe that the function will use to locate NAs
+#' @param data (tbl_df, df, data.frame) dataframe that the function will use to replace NAs
 #' @param columns (vector or list) columns that specify which column to replace
 #' @param replace (character) the method to replace missing values with
-#' @param remove (logical) TRUE to remove missing value rows
+#' @param remove (logical) set TRUE to remove missing value rows
 #'
 #' @return
 #' A list of tuples where each NAs will be replaced by either

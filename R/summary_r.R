@@ -15,7 +15,7 @@
 #'
 #' @param data (tbl_df, df, data.frame) dataframe that the function will use to locate NAs
 #'
-#' @return a nested list of columns with their summary statistics
+#' @return a nested list of columns that includes all the summary statistics information
 #' @importFrom stats median
 #' @export
 summary_r <- function(data) {
