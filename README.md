@@ -93,7 +93,12 @@ To install `CleanR`, please follow these instructions:
 
 2. Then input the following code into the console
 ``` r
+# To install with vignettes:
+devtools::install_github("UBC-MDS/CleanR", build_opts = c("--no-resave-data", "--no-manual"))
+
+# To install without vignettes:
 devtools::install_github("UBC-MDS/CleanR")
+
 library(CleanR)
 ```
 
