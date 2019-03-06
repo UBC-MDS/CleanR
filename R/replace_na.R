@@ -33,9 +33,7 @@ replace_na <- function(data, columns, replace="mean", remove=FALSE) {
   }
   for (i in columns) {
     vec <- get(i, data)
-    if (!any(is.na(vec))) {
-      warning("There are no missing values.")
-    } else if (!any(is.na(vec) == FALSE)) {
+    if (!any(is.na(vec) == FALSE)) {
       stop("Cannot perform function when all values are missing.")
     } else if (!is.numeric(vec)) {
       stop("The column or columns you have inputted are not numeric.")

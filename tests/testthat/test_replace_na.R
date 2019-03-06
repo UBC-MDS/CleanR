@@ -25,10 +25,6 @@ test_that("Test that input column are all NAs", {
   expect_error(replace_na(toy_all_na, "y"), "Cannot perform function when all values are missing.")
 })
 
-test_that("Test warning if there are no missing values", {
-  expect_warning(replace_na(toy_no_na, "x"), "There are no missing values.")
-  expect_warning(replace_na(toy_no_na, "y"), "There are no missing values.")
-})
 
 test_that("Test warning if there are no missing values", {
   expect_error(replace_na(toy_data_tbl, "x"), "The column or columns you have inputted are not numeric.")

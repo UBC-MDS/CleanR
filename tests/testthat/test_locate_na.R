@@ -31,7 +31,6 @@ test_that("Test for correct functionality of the function", {
 
   expect_equal(locate_na(toy_data_tbl), toy_result)
   expect_warning(locate_na(toy_all_na), "All values are missing.")
-  expect_warning(locate_na(toy_no_na), "No NAs are in the input data.")
 })
 
 test_that("Test that output cannot have have more rows and columns than the original input data", {

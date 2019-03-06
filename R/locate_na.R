@@ -19,10 +19,6 @@ locate_na <- function(data) {
   if (!any(is.na(data) == FALSE)) {
     warning("All values are missing.")
   }
-  # check if data has no NA
-  if (!any(is.na(data))) {
-    warning("No NAs are in the input data.")
-  }
   # code to locate_na
   col_na = list()
   columns <- colnames(data)
