@@ -111,13 +111,17 @@ toy_data_tbl <- tribble(
 Arguments:
     - `data`: dataframe or tibble that the function will provide summary statistics on
     - Example: `CleanR::summary_r(toy_data_tbl)`
-    - Output:![summary_output image](./images/summary_output.png)
+    - Output:
+
+    ![summary_output image](./images/summary_output.png)
 
 2. `locate_na`
 Arguments:
     - `data`: dataframe or tibble that the function will use to locate NAs
     - Example: `CleanR::locate_na(toy_data_tbl)`
-    - Output: ![locate_na image](./images/locate_na_output.png)
+    - Output:
+
+    ![locate_na image](./images/locate_output.png)
 
 3. `replace_na`
 Arguments:
@@ -126,7 +130,9 @@ Arguments:
     - `replace`: the method to replace missing values with
     - `remove`: set TRUE to remove missing value rows
     - Example: `CleanR::replace_na(toy_data_tbl, columns="y", replace="mean", remove=FALSE)`
-    - Output: ![replace_na image](./images/replace_na_output.png)
+    - Output:
+
+    ![replace_na image](./images/replace_na_output.png)
 
 ## Branch Coverage
 You can install the coverage package in r with the following code:
